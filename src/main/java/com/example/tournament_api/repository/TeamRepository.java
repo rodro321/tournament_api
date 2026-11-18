@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TeamReposity extends JpaRepository <Team,Long>{
+public interface TeamRepository extends JpaRepository <Team,Long>{
     List<Team>  findAll();
 }

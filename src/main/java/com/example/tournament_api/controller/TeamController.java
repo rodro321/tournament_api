@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/team")
@@ -14,6 +15,22 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
+    @PostMapping()
+    public Team createPlayer(@RequestBody TeamRequest teamRequest){
+        return teamService.save(teamRequest);
+    }
+
+    @GetMapping("/teams")
+    public List<Team> teamList(){
+        return teamService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Team> getById(@PathVariable Long id){
+        return teamService.getById(id);
+    }
+
+    /*
     @PostMapping()
     public void createPlayer(@RequestBody TeamRequest teamRequest){
         teamService.save(teamRequest);
@@ -38,4 +55,6 @@ public class TeamController {
     public void delete(@PathVariable Long id){
         teamService.delete(id);
     }
+    */
+
 }
