@@ -1,6 +1,8 @@
 package com.example.tournament_api.service;
 
 import com.example.tournament_api.dto.request.TeamRequest;
+import com.example.tournament_api.dto.response.TeamResponse;
+import com.example.tournament_api.exception.TeamNotFoundException;
 import com.example.tournament_api.model.Team;
 import com.example.tournament_api.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +33,16 @@ public class TeamService {
         //return teamRepository.findAll();
         return teamRepository.findAll();
     }
-    public Optional<Team> getById(Long id) {
-        return teamRepository.findById(id);
+    public TeamResponse getById(Long id) {
+        Team team = teamRepository.findById(id).orElseThrow(()-> new TeamNotFoundException(id));
+        return toResponse(team);
     }
 
+    private TeamResponse toResponse(Team team){
+        TeamResponse response = new TeamResponse(team.getName());
+        //response.setNamer(team.getName());
+        return response;
+    }
 
     /*
     public void save(TeamRequest teamRequest) {

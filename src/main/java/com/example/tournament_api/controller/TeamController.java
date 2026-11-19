@@ -1,9 +1,12 @@
 package com.example.tournament_api.controller;
 
 import com.example.tournament_api.dto.request.TeamRequest;
+import com.example.tournament_api.dto.response.TeamResponse;
 import com.example.tournament_api.model.Team;
 import com.example.tournament_api.service.TeamService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +19,7 @@ public class TeamController {
     private TeamService teamService;
 
     @PostMapping()
-    public Team createPlayer(@RequestBody TeamRequest teamRequest){
+    public Team createPlayer(@Valid @RequestBody TeamRequest teamRequest){
         return teamService.save(teamRequest);
     }
 
@@ -26,7 +29,7 @@ public class TeamController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Team> getById(@PathVariable Long id){
+    public TeamResponse getById(@PathVariable Long id){
         return teamService.getById(id);
     }
 

@@ -3,6 +3,8 @@ package com.example.tournament_api.repository;
 import com.example.tournament_api.dto.request.PlayerRequest;
 import com.example.tournament_api.dto.response.PlayerResponse;
 import com.example.tournament_api.model.Player;
+import org.hibernate.type.descriptor.converter.spi.JpaAttributeConverter;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,7 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class PlayerRepository {
+public interface PlayerRepository extends JpaRepository<Player, Long> {
+
+        List<Player> findAll();
+
+    /*
     private final Map<Long, PlayerResponse> players = new LinkedHashMap<>();
 
     public  PlayerResponse save(Long id, String name, int number) {
@@ -51,5 +57,7 @@ public class PlayerRepository {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Se requieren el nombre y el numero");
         }
     }
+
+     */
 
 }
