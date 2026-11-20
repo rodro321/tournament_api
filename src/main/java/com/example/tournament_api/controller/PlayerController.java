@@ -6,6 +6,7 @@ import com.example.tournament_api.dto.response.PlayerResponse;
 import com.example.tournament_api.model.Player;
 import com.example.tournament_api.model.Team;
 import com.example.tournament_api.service.PlayerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,7 @@ public class PlayerController {
     private PlayerService playerService;
 
     @PostMapping()
-    public Player createPlayer(@RequestBody PlayerRequest playerRequest){
+    public Player createPlayer(@Valid  @RequestBody PlayerRequest playerRequest){
         return playerService.save(playerRequest);
     }
 
@@ -39,8 +40,7 @@ public class PlayerController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Player> getById(@PathVariable Long id){
-
+    public PlayerResponse getById(@PathVariable Long id){
         return playerService.getById(id);
     }
 

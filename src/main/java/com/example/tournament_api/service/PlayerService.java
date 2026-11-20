@@ -3,6 +3,7 @@ package com.example.tournament_api.service;
 import com.example.tournament_api.dto.request.PlayerRequest;
 import com.example.tournament_api.dto.request.TeamRequest;
 import com.example.tournament_api.dto.response.PlayerResponse;
+import com.example.tournament_api.exception.PlayerNotFound;
 import com.example.tournament_api.model.Player;
 import com.example.tournament_api.model.Team;
 import com.example.tournament_api.repository.PlayerRepository;
@@ -28,10 +29,16 @@ public class PlayerService {
     public List<Player> findAll() {
         return playerRepository.findAll();
     }
-    public Optional<Player> getById(Long id) {
-        return playerRepository.findById(id);
+
+    public PlayerResponse getById(Long id) {
+        Player player = playerRepository.findById(id).orElseThrow(()-> new PlayerNotFound(id));
+        return toResponse(player);
     }
 
+    private PlayerResponse toResponse (Player player){
+        PlayerResponse response = new PlayerResponse(player.getName(),player.getNumber());
+        return response;
+    }
 
     /*
     public PlayerService (){
