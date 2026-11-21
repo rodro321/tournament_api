@@ -1,0 +1,26 @@
+version: '2'
+services:
+  redis:
+    container_name: redis
+    image: redis:7.0.13-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis_data:/data
+    networks:
+      - set_fusion_network
+
+  redisinsight:
+    container_name: redisinsight
+    image: redislabs/redisinsight:1.13.0
+    restart: always
+    ports:
+      - 8001:8001
+    networks:
+      - set_fusion_network
+
+networks:
+  set_fusion_network:
+    external: true
+    name: setfusion-ci

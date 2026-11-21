@@ -6,6 +6,7 @@ import com.example.tournament_api.exception.TeamNotFoundException;
 import com.example.tournament_api.model.Team;
 import com.example.tournament_api.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,8 +30,10 @@ public class TeamService {
         return teamRepository.save(team);
     }
 
+    @Cacheable(value = "team")
     public List<Team> findAll() {
         //return teamRepository.findAll();
+        System.out.println("Vianjando ala base de datos");
         return teamRepository.findAll();
     }
     public TeamResponse getById(Long id) {
